@@ -36,7 +36,9 @@ export async function getConfig(): Promise<SiteConfig> {
   }
 }
 
-export async function updateConfig(data: Partial<Omit<SiteConfig, "id">>) {
+export async function updateConfig(
+  data: Partial<Omit<SiteConfig, "id">>
+): Promise<{ success: boolean; error?: string }> {
   try {
     await prisma.siteConfig.upsert({
       where: { id: 1 },
@@ -45,8 +47,9 @@ export async function updateConfig(data: Partial<Omit<SiteConfig, "id">>) {
     });
     revalidatePath("/");
     revalidatePath("/admin-dashboard");
+    return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Database error";
-    throw new Error("Failed to save config: " + message);
+    return { success: false, error: "Failed to save config: " + message };
   }
 }

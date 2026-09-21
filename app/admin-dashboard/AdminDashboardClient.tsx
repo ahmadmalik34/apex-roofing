@@ -30,21 +30,20 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
   function handleSave() {
     setSaveError(null);
     startTransition(async () => {
-      try {
-        await updateConfig({
-          companyName,
-          primaryColor,
-          logoUrl,
-          watermarkEnabled,
-          watermarkText,
-          contactLabel,
-          contactEmail,
-        });
+      const result = await updateConfig({
+        companyName,
+        primaryColor,
+        logoUrl,
+        watermarkEnabled,
+        watermarkText,
+        contactLabel,
+        contactEmail,
+      });
+      if (result.success) {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
-      } catch (err: unknown) {
-        const message = err instanceof Error ? err.message : "Unknown error";
-        setSaveError("Save failed: " + message);
+      } else {
+        setSaveError(result.error ?? "Save failed. Please try again.");
       }
     });
   }
