@@ -1,69 +1,79 @@
 import Image from "next/image";
+import ServicesAccordion from "./ServicesAccordion";
+import StatsSection from "./StatsSection";
+import Reveal from "./Reveal";
+import ReviewsCarousel from "./ReviewsCarousel";
+import SiteHeader from "./SiteHeader";
+import SiteFooter from "./SiteFooter";
+
+function ArrowIcon() {
+  return <span aria-hidden="true">↗</span>;
+}
+
+const work = [
+  { src: "/images/our work 1.jpg", title: "Commercial roof", large: true },
+  { src: "/images/our work 2.jpg", title: "Modern metal roof", large: true },
+  { src: "/images/our work 3.jpg", title: "Clean lines", large: false },
+  { src: "/images/our work 4.jpg", title: "Residential detail", large: false },
+  { src: "/images/our work 5.jpg", title: "Built for home", large: false },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main>
+      {/* Hero — no reveal, it's the first thing visible */}
+      <section id="home" className="hero-wrap">
+        <div className="hero">
+          <Image src="/images/hero image.jpg" alt="Roofer working on a metal roof" fill className="hero-image" priority />
+          <SiteHeader />
+          <div className="hero-caption">Crafting quality.<br />Building trust.</div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      <Reveal>
+        <section className="intro section-pad">
+          <div className="intro-row">
+            <h1>We Build<br />Roofs That <span className="orange">Last.</span></h1>
+            <p className="small-copy">Expert craftsmanship meets reliable modern care. Protecting local homes and businesses with strong roofing solutions built to last.</p>
+          </div>
+          <p className="statement"><strong>Apex Roofing delivers premium craftsmanship</strong><span>, quick repairs, and reliable full replacements using weather-resistant materials.</span></p>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section id="service" className="services section-pad">
+          <div className="section-heading"><div><h2>Our Services</h2><p className="small-copy">Every project benefits from our 25 years of hands-on experience and a dedicated team treating your home with care.</p></div><div className="heading-rule" /></div>
+          <ServicesAccordion />
+        </section>
+      </Reveal>
+
+      <StatsSection />
+
+      <Reveal>
+        <section id="work" className="work section-pad">
+          <div className="section-heading inline-heading"><h2>Our Works</h2><a className="mini-button" href="#book">See all <ArrowIcon /></a></div>
+          <div className="work-grid">{work.map((item) => <a className={`work-card ${item.large ? "large" : ""}`} href="#book" key={item.src}><Image src={item.src} alt={item.title} fill sizes="(max-width: 700px) 100vw, 50vw" /><span>{item.title}</span>{item.large && <small>Explore a recent project <ArrowIcon /></small>}</a>)}</div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <ReviewsCarousel />
+      </Reveal>
+
+      <Reveal>
+        <section id="book" className="cta">
+          <Image src="/images/safe roof.jpg" alt="Safe modern home with a strong roof" fill sizes="100vw" />
+          <div className="cta-content">
+            <h2>Safe Roof,<br />Safe Home</h2>
+            <p>Request your free, clear estimate today. We give a simple, honest advice without any high pressure pitch.</p>
+            <a className="button button-orange" href="mailto:hello@apexroofing.com">Get Your Free Estimate <ArrowIcon /></a>
+          </div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <SiteFooter />
+      </Reveal>
+    </main>
   );
 }

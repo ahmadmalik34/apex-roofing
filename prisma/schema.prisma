@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model SiteConfig {
+  id               Int     @id @default(1)
+  companyName      String  @default("apex")
+  primaryColor     String  @default("#ff673d")
+  logoUrl          String  @default("")
+  watermarkEnabled Boolean @default(false)
+  watermarkText    String  @default("Velmora Softlab")
+  contactLabel     String  @default("Contact Us")
+  contactEmail     String  @default("hello@apexroofing.com")
+}
