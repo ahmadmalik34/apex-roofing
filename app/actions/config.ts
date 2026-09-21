@@ -37,11 +37,16 @@ export async function getConfig(): Promise<SiteConfig> {
 }
 
 export async function updateConfig(data: Partial<Omit<SiteConfig, "id">>) {
-  await prisma.siteConfig.upsert({
-    where: { id: 1 },
-    update: data,
-    create: { ...DEFAULT_CONFIG, ...data },
-  });
-  revalidatePath("/");
-  revalidatePath("/admin-dashboard");
+  try {
+    await prisma.siteConfig.upsert({
+      where: { id: 1 },
+      update: data,
+      create: { ...DEFAULT_CONFIG, ...data },
+    });
+    revalidatePath("/");
+    revalidatePath("/admin-dashboard");
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Database error";
+    throw new Error("Failed to save config: " + message);
+  }
 }

@@ -23,29 +23,43 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
   const [contactLabel, setContactLabel] = useState(config.contactLabel);
   const [contactEmail, setContactEmail] = useState(config.contactEmail);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleSave() {
+    setSaveError(null);
     startTransition(async () => {
-      await updateConfig({
-        companyName,
-        primaryColor,
-        logoUrl,
-        watermarkEnabled,
-        watermarkText,
-        contactLabel,
-        contactEmail,
-      });
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      try {
+        await updateConfig({
+          companyName,
+          primaryColor,
+          logoUrl,
+          watermarkEnabled,
+          watermarkText,
+          contactLabel,
+          contactEmail,
+        });
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setSaveError("Save failed: " + message);
+      }
     });
   }
 
   // Convert uploaded image file to base64 data URL for logoUrl
+  // Limit to 200 KB to avoid exceeding Vercel's response size limits
   function handleLogoUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    const MAX_SIZE = 200 * 1024; // 200 KB
+    if (file.size > MAX_SIZE) {
+      alert("Image is too large. Please upload an image under 200 KB.\n\nTip: You can compress your image at squoosh.app or tinypng.com before uploading.");
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
     const reader = new FileReader();
     reader.onloadend = () => setLogoUrl(reader.result as string);
     reader.readAsDataURL(file);
@@ -65,6 +79,9 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           {saved && (
             <span style={{ fontSize: "13px", color: "#22c55e", fontWeight: 600 }}>✓ Saved successfully</span>
+          )}
+          {saveError && (
+            <span style={{ fontSize: "13px", color: "#ef4444", fontWeight: 600, maxWidth: "320px" }}>{saveError}</span>
           )}
           <button
             onClick={handleSave}
