@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { useSiteConfig } from "./SiteConfigProvider";
 
 const navLinks = [
@@ -21,6 +22,7 @@ function HouseIcon() {
 
 export default function SiteHeader() {
   const { companyName, logoUrl, contactLabel, contactEmail } = useSiteConfig();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="site-header">
@@ -42,6 +44,26 @@ export default function SiteHeader() {
           </a>
         ))}
       </nav>
+
+      <button
+        className="mobile-menu-toggle"
+        type="button"
+        aria-expanded={menuOpen}
+        aria-controls="mobile-navigation"
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <span aria-hidden="true" className="menu-icon"><span /><span /></span>
+        <span>Menu</span>
+      </button>
+
+      {menuOpen && (
+        <nav id="mobile-navigation" className="mobile-menu" aria-label="Mobile navigation">
+          {navLinks.map(([label, href]) => (
+            <a key={href} href={`#${href}`} onClick={() => setMenuOpen(false)}>{label}</a>
+          ))}
+        </nav>
+      )}
 
       <a className="button button-orange header-button" href={`mailto:${contactEmail}`}>
         {contactLabel} <ArrowIcon />

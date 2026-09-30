@@ -65,9 +65,9 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f5f5f5", fontFamily: "Inter, Arial, sans-serif" }}>
+    <div className="admin-dashboard" style={{ minHeight: "100vh", background: "#f5f5f5", fontFamily: "Inter, Arial, sans-serif" }}>
       {/* Top bar */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #ebebeb", padding: "18px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div className="admin-topbar" style={{ background: "#fff", borderBottom: "1px solid #ebebeb", padding: "18px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <span style={{ width: "36px", height: "36px", borderRadius: "50%", background: primaryColor, display: "grid", placeItems: "center", color: "#fff", fontSize: "18px" }}>⌂</span>
           <div>
@@ -100,7 +100,7 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
       </div>
 
       {/* Main content */}
-      <div style={{ maxWidth: "860px", margin: "40px auto", padding: "0 24px", display: "grid", gap: "20px" }}>
+      <div className="admin-main" style={{ maxWidth: "860px", margin: "40px auto", padding: "0 24px", display: "grid", gap: "20px" }}>
 
         {/* Branding */}
         <Card title="Branding" subtitle="Company name and logo shown across the site">
@@ -245,7 +245,7 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
               style={inputStyle}
               placeholder="hello@apexroofing.com"
             />
-            <p style={{ marginTop: "6px", fontSize: "12px", color: "#aaa" }}>Clicking the button will open the user's mail client with this address.</p>
+            <p style={{ marginTop: "6px", fontSize: "12px", color: "#aaa" }}>Clicking the button will open the user&apos;s mail client with this address.</p>
           </Field>
           <div style={{ marginTop: "4px" }}>
             <span style={{ fontSize: "12px", color: "#888", marginRight: "10px" }}>Preview:</span>
@@ -281,12 +281,12 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
 
 function Card({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
-    <div style={{ background: "#fff", borderRadius: "16px", border: "1px solid #ebebeb", overflow: "hidden" }}>
-      <div style={{ padding: "20px 28px 16px", borderBottom: "1px solid #f0f0f0" }}>
+    <div className="admin-card" style={{ background: "#fff", borderRadius: "16px", border: "1px solid #ebebeb", overflow: "hidden" }}>
+      <div className="admin-card-header" style={{ padding: "20px 28px 16px", borderBottom: "1px solid #f0f0f0" }}>
         <div style={{ fontWeight: 700, fontSize: "15px", letterSpacing: "-0.02em" }}>{title}</div>
         <div style={{ fontSize: "12px", color: "#999", marginTop: "2px" }}>{subtitle}</div>
       </div>
-      <div style={{ padding: "24px 28px", display: "grid", gap: "20px" }}>{children}</div>
+      <div className="admin-card-body" style={{ padding: "24px 28px", display: "grid", gap: "20px" }}>{children}</div>
     </div>
   );
 }

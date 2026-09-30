@@ -26,8 +26,19 @@ export default function Home() {
         <div className="hero">
           <Image src="/images/hero image.jpg" alt="Roofer working on a metal roof" fill className="hero-image" priority />
           <SiteHeader />
-          <div className="hero-caption">Crafting quality.<br />Building trust.</div>
+          <div className="hero-content">
+            <p className="hero-eyebrow">Roofing you can count on</p>
+            <h1>Crafting quality.<br />Building trust.</h1>
+            <a className="button button-orange hero-button" href="#book">Get a free estimate <ArrowIcon /></a>
+          </div>
+          <div className="hero-caption">25 years of hands-on experience</div>
         </div>
+      </section>
+
+      <section className="proof-strip section-pad" aria-label="Why choose Apex Roofing">
+        <div className="proof-item"><strong>25+</strong><span>years of experience</span></div>
+        <div className="proof-item"><strong>1,500+</strong><span>roofs completed</span></div>
+        <div className="proof-item"><strong>Free</strong><span>honest estimates</span></div>
       </section>
 
       <Reveal>
@@ -64,9 +75,10 @@ export default function Home() {
         <section id="book" className="cta">
           <Image src="/images/safe roof.jpg" alt="Safe modern home with a strong roof" fill sizes="100vw" />
           <div className="cta-content">
+            <p className="cta-kicker">A stronger roof starts here</p>
             <h2>Safe Roof,<br />Safe Home</h2>
-            <p>Request your free, clear estimate today. We give a simple, honest advice without any high pressure pitch.</p>
-            <a className="button button-orange" href="mailto:hello@apexroofing.com">Get Your Free Estimate <ArrowIcon /></a>
+            <p>Get a clear plan for your home from a team that treats your property like its own. No pressure, no surprises.</p>
+            <a className="button button-orange" href="mailto:hello@apexroofing.com">Start with a free estimate <ArrowIcon /></a>
           </div>
         </section>
       </Reveal>
