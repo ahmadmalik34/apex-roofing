@@ -7,12 +7,12 @@ export default function Watermark() {
 
   if (!watermarkEnabled) return null;
 
-  // Build a grid of repeated text across the whole viewport
   const items = Array.from({ length: 120 });
 
   return (
     <div
       aria-hidden="true"
+      className="watermark-layer"
       style={{
         position: "fixed",
         inset: 0,
@@ -20,9 +20,9 @@ export default function Watermark() {
         pointerEvents: "none",
         overflow: "hidden",
         display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
-        gap: "60px 40px",
-        padding: "40px",
+        gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+        gap: "clamp(1.2rem, 4vw, 3.75rem) clamp(1rem, 2vw, 2.5rem)",
+        padding: "clamp(1rem, 4vw, 2.5rem)",
         userSelect: "none",
       }}
     >
@@ -30,7 +30,7 @@ export default function Watermark() {
         <span
           key={i}
           style={{
-            fontSize: "13px",
+            fontSize: "clamp(0.7rem, 1vw, 0.9rem)",
             fontWeight: 600,
             color: "rgba(0,0,0,0.07)",
             whiteSpace: "nowrap",

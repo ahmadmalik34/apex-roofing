@@ -75,7 +75,7 @@ export default function AdminDashboardClient({ config }: { config: SiteConfig })
             <div style={{ fontSize: "12px", color: "#888" }}>apex-roofing · Site Configuration</div>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
           {saved && (
             <span style={{ fontSize: "13px", color: "#22c55e", fontWeight: 600 }}>✓ Saved successfully</span>
           )}
